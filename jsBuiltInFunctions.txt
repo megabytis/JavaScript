@@ -1,0 +1,5 @@
+1. alert("--messege--") :- to show a popup containing the messege
+
+2. prompt("--messege--") :- to pop up a prompt like alert() , to take User Input 
+
+3. 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Guess My Number!</title>
+  </head>
+  <body>
+    <header>
+      <h1>Guess My Number!</h1>
+      <p class="between">(Between 1 and 20)</p>
+      <button class="btn again">Play Again!</button>
+      <div class="number">?</div>
+    </header>
+    <main>
+      <section class="left">
+        <div class="range-indicator">
+          <span>0</span>
+          <div class="range-line"></div>
+          <span>20</span>
+        </div>
+
+        <input type="number" class="guess" />
+        <button class="btn check">Check!</button>
+
+        <!-- Add this help button -->
+        <button class="btn help">❔ How to Play</button>
+      </section>
+      <section class="right">
+        <p class="message">Start guessing...</p>
+        <p class="label-score">💯 Score: <span class="score"></span></p>
+        <p class="label-highscore">
+          🥇 Highscore: <span class="highscore">0</span>
+        </p>
+      </section>
+    </main>
+
+    <!-- Add this modal at the bottom of body -->
+    <div class="modal hidden">
+      <div class="modal-content">
+        <button class="close-modal">&times;</button>
+        <h2>How to Play</h2>
+        <ul>
+          <li>Guess a number between <strong>0 and 20</strong></li>
+          <li>You have <strong>20 attempts</strong></li>
+          <li>Higher/lower hints will guide you</li>
+        </ul>
+      </div>
+    </div>
+    <div class="overlay hidden"></div>
+
+    <script src="p1Script.js"></script>
+  </body>
+</html>

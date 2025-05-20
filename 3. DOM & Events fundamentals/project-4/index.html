@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SoundTrack</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Adding keys -->
+    <div class="keys">
+      <div class="key" data-key="KeyA"> <!-- here syntax is data-key="keyCode" -->
+        <p>A</p>
+        <p class="sound">kick</p>
+      </div>
+
+      <div class="key" data-key="KeyS">
+        <p>S</p>
+        <p class="sound">snare</p>
+      </div>
+
+      <div class="key" data-key="KeyD">
+        <p>D</p>
+        <p class="sound">clap</p>
+      </div>
+
+      <div class="key" data-key="KeyF">
+        <p>F</p>
+        <p class="sound">close-door</p>
+      </div>
+
+      <div class="key" data-key="KeyG">
+        <p>G</p>
+        <p class="sound">hi-hat</p>
+      </div>
+
+      <div class="key" data-key="KeyH">
+        <p>H</p>
+        <p class="sound">crash</p>
+      </div>
+      
+    </div>
+
+    <!-- now adding audios -->
+    <audio data-key="KeyA" src="./sounds/1.kick-drum.wav"></audio>
+    <audio data-key="KeyS" src="./sounds/2.snare.wav"></audio>
+    <audio data-key="KeyD" src="./sounds/3.clap.wav"></audio>
+    <audio data-key="KeyF" src="./sounds/4.close-door.wav"></audio>
+    <audio data-key="KeyG" src="./sounds/5.hi-hat.wav"></audio>
+    <audio data-key="KeyH" src="./sounds/6.crash.wav"></audio>
+
+    <!-- Adding javascript file -->
+    <script src="script.js"></script>
+  </body>
+</html>

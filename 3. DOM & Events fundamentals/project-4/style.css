@@ -1,0 +1,53 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    background: #222;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.keys {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 150px;
+}
+
+.key {
+    border: 4px solid white;
+    border-radius: 10px;
+    width: 80px;
+    height: 100px;
+    background: #333;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: transform 0.1s, background 0.2s;
+    cursor: pointer;
+}
+
+.key.pressed {
+    background: #555;
+    transform: scale(0.95);
+}
+
+.key p {
+  margin: 2px 0;
+}
+
+.key .sound {
+  font-size: 0.7em;
+  color: #aaa;
+}
+

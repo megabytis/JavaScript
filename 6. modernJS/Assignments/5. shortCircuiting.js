@@ -197,3 +197,22 @@ function hasExamplesInJava(book) {
 }
 
 hasExamplesInJava(books[3]);
+
+// 5.2
+// Some of the book objects have the onlineContent property, which is either true or false. Loop over the books array, and for the books that provide online content, log to the console a string in this format: "${title}" provides online content. Use short-circuiting.
+
+for(let i=0; i<books.length; i++) {
+  if(books[i].onlineContent == true) {
+    console.log(`${books[i].title} provides online content .`);
+  }
+}
+// -------or-----
+for(let i=0; i<books.length; i++) {
+  books[i].onlineContent && console.log(`${books[i].title} provides online content .`);
+}
+
+// 5.3
+// There are objects in the books array that don't have the onlineContent property at all. Loop over the books array, and log a string to the console in this format: "${title}" provides no data about its online content.
+for(let i=0; i<books.length; i++) {
+  books[i].onlineContent ?? console.log(`${books[i].title} doesn't provide online content .`);
+}

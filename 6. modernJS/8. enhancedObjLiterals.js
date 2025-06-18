@@ -58,3 +58,28 @@ const hotel = {
 };
 
 console.log(hotel);
+
+
+// -----------------------XTRA CONCEPT--------------------------
+// To insert properties/keys,values to an obj 
+const obj = {};
+
+// METHOD - 1 : using ' . ' operator
+obj.apple = 100;
+obj.grapes = 80;
+
+// method - 2 : using ' [] ', if u wanna insert string / string-variable
+const propertName = "mango";
+obj[propertName] = 200;
+
+obj["banana"] = 120;
+
+console.log(obj);
+
+
+// To access property values 
+// METHOD - 1 : using ' . '
+console.log(obj.apple);
+
+// METHOD - 2 :  using ' [] '
+console.log(obj['grapes']);

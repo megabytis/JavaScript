@@ -149,3 +149,18 @@ const mrPerfectName = function (name) {
 mrPerfectName('raghu veer suryavanshi');
 
 // PADDING STRING
+// syntax : padStart(num,sym), padEnd(num,sym)
+const city = 'BBSR';
+console.log(city.padStart(6, '+').padEnd(7, '+'));
+/*
+here padStart(6, '+') means, it will first try to make 'city's length 6,
+'BBSR's length is 4, so (6-4=) 2 '+' symbols will be added before BBSR,
+then padEnd(7, '+') will try to make it's length 7, i.e. 1 more '+' symbol will be added post BBSR,
+
+⚠️⚠️⚠️IMPORTANT⚠️⚠️⚠️
+padStart/padEnd's number should be greater than entire string's length
+*/
+
+// repeat() method
+const string2 = 'Bellachao a marvellous song....';
+console.log(string2.repeat(5));

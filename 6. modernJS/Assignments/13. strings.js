@@ -367,3 +367,34 @@ function logBookChapters(chapters) {
 }
 
 logBookChapters(bookChapters);
+
+// ######### MORE Question PRACTICE on STRINGS ##########
+// Qn.1
+const flights =
+  '_Delayed_Departure;fao93766109;txl2133758440;11:25+_Arrival;bru0943384722;fao93766109;11:45+_Delayed_Arrival;hel7439299980;fao93766109;12:05+_Departure;fao93766109;lis2323639855;12:30';
+// output be like ;
+// 🔴 Delayed Departure from FAO to TXL (11h25)
+//              Arrival from BRU to FAO (11h45)
+//   🔴 Delayed Arrival from HEL to FAO (12h05)
+//            Departure from FAO to LIS (12h30)
+
+for (const planes of flights.split('+')) {
+  const [status, from, to, time] = planes.split(';');
+
+  let statusString = status.replaceAll('_', ' ').trim();
+  if (status.includes('Delayed')) {
+    statusString = '🔴 ' + statusString;
+  }
+
+  // adding airport locations
+  const fromPlace = from.slice(0, 3).toUpperCase();
+  const toPlace = to.slice(0, 3).toUpperCase();
+
+  // adding time
+  const formattedTime = time.replace(':', 'h');
+
+  // final line to print
+  const finalPart = `${statusString} from ${fromPlace} to ${toPlace} (${formattedTime})`;
+
+  console.log(finalPart.padStart(45));
+}

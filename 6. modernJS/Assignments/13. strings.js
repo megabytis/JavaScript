@@ -1,7 +1,5 @@
 'use strict';
 
-'use strict';
-
 const books = [
   {
     title: 'Algorithms',
@@ -326,19 +324,46 @@ logBookCategories(bookCategories);
 // Now, the opposite. Each book from the books array has the keywords property.
 // Write a function called getKeywordsAsString that takes the books array as an argument, collects keywords from each book, removes duplicates,
 // and then joins them to create a single string where keywords are separated by a semicolon.
-function getKeywordsAsString(books) {
-  for (const bookObjects of books) {
-    var bookKeywors = [...bookObjects.keywords];
-    console.log(bookKeywors);
-  }
-  const newBookKeyword = new Set(bookKeywors);
-  //   console.log(newBookKeyword);
 
-  var finalWord = '';
-  for (const words of Object.values(newBookKeyword)) {
-    // finalWord += newBookKeyword;
-    console.log(words);
+function getKeywordsAsString(books) {
+  const keywords = [];
+
+  for (const book of books) {
+    keywords.push(...book.keywords);
   }
-  //   console.log(finalWord);
+
+  const uniqueKeywords = [...new Set(keywords)];
+
+  return uniqueKeywords.join(';');
 }
-getKeywordsAsString(books);
+console.log(getKeywordsAsString(books));
+
+// 13.10
+// Below is the bookChapters array that contains inner arrays. Each inner array consists of a chapter's title,
+// and the number of a page, for example, in ['The Basics', 14], 'The Basics' is the chapter's title, and 14 is the number of a page.
+// Write a function called logBookChapters that takes an array of arrays (like bookChapters) as an argument,
+// and logs each chapter's name to the console together with the page number.
+// The page number should be separated from the chapter's name with underscores (take a look at the example below).
+/* Expected output:
+The Basics__________ 14
+Sorting_____________ 254
+Searching___________ 372
+Graphs______________ 526
+Strings_____________ 706
+*/
+// Use the padEnd method.
+const bookChapters = [
+  ['The Basics', 14],
+  ['Sorting', 254],
+  ['Searching', 372],
+  ['Graphs', 526],
+  ['Strings', 706],
+];
+
+function logBookChapters(chapters) {
+  for (const [chapterName, pageNum] of chapters) {
+    console.log(chapterName.padEnd(20, '_') + ' ' + pageNum);
+  }
+}
+
+logBookChapters(bookChapters);

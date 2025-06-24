@@ -93,18 +93,34 @@ function mainHigherOrderFunc(string, func) {
 // here it is HIGHER-ORDER function, taking 'func' CALLBACK function as argument
 
 mainHigherOrderFunc('Marad#HABA#Raja#Jiii#:)', firstWordCapital); // here i'm passing an callBack func,
-// i.e. i don't wanna call this func now, but yeah wanna call it after mainHigherOrderFunc, so callback :)
+// i.e. i don't wanna call 'firstWordCapital' func now,
+// but yeah wanna call it after mainHigherOrderFunc, so callback :)
 mainHigherOrderFunc('Marad HABA Raja Jiii :)', makeSmall);
 
 //\\ (b) Function Returning a New Function (aka Closure) //\\
-function createCounter() {
-  let count = 0;
+const createCounter = (num) => {
+  let count = num;
+  console.log('num :');
+
   return function () {
     count++;
     console.log(count);
   };
-}
+};
 
-const counter = createCounter();
+const counter = createCounter(5);
 counter();
 counter();
+// here createCounter() returned a FUNCTION and stored in 'counter'
+// so now, 'counter' became an 'function',
+/* 
+return function () {
+  count++;
+  console.log(count);
+};
+this is gonna be called by calling 'counter'
+*/
+// ----------or--------
+// we can also directly call it!
+createCounter(6)(); // first (6) for outside main HIGH-ORDER func
+// nd next () for inside CLOSURE function

@@ -95,18 +95,39 @@ function createMultiplier(factor) {
   };
 }
 
-const double = createMultiplier(2);
-console.log(double(5)); // 10
+const triple = createMultiplier(3);
+console.log(triple(7));
+// ------OR------
+const double = createMultiplier(2)(5);
+console.log(double); // 10
 
-// (iv) Methods on Functions (e.g., bind, call, apply)
-const person = { name: 'John' };
+// (iv) Storing Functions in Data Structures(in array, object, map/set)
 
-function greet2() {
-  console.log(`Hello, ${this.name}!`);
-}
+// --> Storing Functions in an Array
+const mathOperations = [
+  (a, b) => a + b,
+  (a, b) => a - b,
+  (a, b) => a * b,
+  (a, b) => a / b,
+];
 
-const greetJohn = greet2.bind(person);
-greetJohn();
+const x = 10,
+  y = 5;
+mathOperations.forEach((op) => console.log(op(x, y)));
+
+// --> Storing Functions in an Object
+const calculator = {
+  add: (a, b) => a + b,
+  subtract: (a, b) => a - b,
+  multiply: (a, b) => a * b,
+  divide: (a, b) => a / b,
+};
+
+// Use the functions
+console.log(calculator.add(10, 5));
+console.log(calculator.subtract(10, 5));
+console.log(calculator.multiply(10, 5));
+console.log(calculator.divide(10, 5));
 
 // 2. *** HIGHER-OREDER FUNCTIONS ***
 /* those who ;

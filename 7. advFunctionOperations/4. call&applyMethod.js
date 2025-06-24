@@ -36,9 +36,7 @@ But..But..But... to get access to entire object after assigning only 'bookSeat' 
 we can use ;
 */
 // (i) ARROW FUNCTION inside object, or,
-// (ii) .bind() method permanently bind the context
-// const iWannaBookASeat2 = train.bookSeat.bind(train);
-// iWannaBookASeat2('Radhe', 39);
+// (ii) .bind() method :- in next⏭️ .js file :)
 // (iii) .call() & .apply() method
 
 /*

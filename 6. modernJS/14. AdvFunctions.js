@@ -1,6 +1,9 @@
 'use strict';
 
-//##############DEFAULT PARAMETERs###############
+// ###############################################################
+// ##################### DEFAULT PARAMETERs ######################
+// ###############################################################
+
 const takeCollegeAdmission = (
   boardPercentage,
   studentName,
@@ -19,7 +22,9 @@ takeCollegeAdmission(78);
 takeCollegeAdmission(80, 'Madhusudan Bhukta');
 takeCollegeAdmission(90, 'Amuka Dhamuka', 'KIIT');
 
-//######## pass by VALUE (PBV) v/s pass by REFERENCE (PBR) ###########
+// ########################################################################
+// ########## pass by VALUE (PBV) v/s pass by REFERENCE (PBR) #############
+// ########################################################################
 
 /* ⚠️ IMP ⚠️ ;
 Remember 🤨 ?
@@ -55,7 +60,9 @@ See, here student ID is changed permanently, but collegeName not changed permane
 but collegeName is just a variable/Primitive, which is PBV, so 2 copies of it being created, one is outside & another is inside function block .
 */
 
+// #####################################################################
 // ############# First class & HIgher class order functions ############
+// #####################################################################
 
 // 1. *** FIRST-CLASS FUNCTIONS ***
 /*

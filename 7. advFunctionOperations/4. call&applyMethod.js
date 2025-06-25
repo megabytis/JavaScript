@@ -60,7 +60,7 @@ iWannaBookASeat2.call(flight, 'Miku', 20);
 HOW .Call() WORKS ?
 
 -> syntax : function.call(objectName, arg1, arg2, ...)
--> whatever objectName i'll give, this variable will get a FULL COPY of that particular object .
+-> ✅ it Temporarily sets 'this' keyword to 'train' object just for this one call
 -> So, making changes in 'iWannaBookASeat2', won't affect real 'flight' object
 */
 // e.g. ;-

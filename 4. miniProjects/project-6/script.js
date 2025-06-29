@@ -60,3 +60,24 @@ const inputTransferAmount = document.querySelector(".form__input--amount");
 const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
+
+// Updating 'movements' div
+const updatingMovements = function (account) {
+  account.forEach(function (value, index) {
+    let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
+
+    const htmlElement = `
+        <div class="movements__row">
+          <div class="movements__type movements__type--${depositOrWithdrawl}">
+            ${index} ${depositOrWithdrawl}
+          </div>
+          <div class="movements__value">₹${value}</div>
+        </div>
+  `;
+
+    containerMovements.insertAdjacentHTML("afterbegin", htmlElement);
+  });
+};
+
+updatingMovements(account1.movements);
+updatingMovements(account3.movements);

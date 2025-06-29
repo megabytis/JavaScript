@@ -19,6 +19,10 @@ DOM MANIPULATION BRAHMASTRA (v3.0)
  ► el.src = 'image.jpg' // Media elements  
  ► el.dataset._ // Access data-_ attributes
 
+► el.insertAdjacentElement('option',htmlElement) // to insert an entire HTML code to web via js :)
+// here 'option' can be; 'afterbegin','afterend','beforebegin','beforeend'
+// then, htmlElement means, whatever HTML script we wanna push into webpage through js code
+
 ■ 3. CLASS & STYLE (Make It Pretty)  
  ► el.classList.add('active') // Add class  
  ► el.classList.remove('hidden') // Remove class  

@@ -82,20 +82,22 @@ const updatingMovements = function (account) {
 updatingMovements(account1.movements);
 updatingMovements(account3.movements);
 
-// Now trynna extract username from actual name
-const extractUserName = (name) => {
-  let username = "";
-  for (const letter of name.split(" ")) {
-    username += letter[0].toLowerCase();
-  }
-  return username;
+// Now trynna extract username from actual name & place those usernames in respective accounts
+const addingUserName = (accounts) => {
+  accounts.forEach(function (acc) {
+    // ########### MANUAL METHOD : 1 #################
+    // // first making username out of Real Name
+    // let usrname = "";
+    // for (const letter of acc.owner.split(" ")) {
+    //   usrname += letter[0].toLowerCase();
+    // }
+    // acc.username = usrname;
+    // ########### using BUILT-in method : 2 ##########
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(" ")
+      .map((n) => n[0])
+      .join();
+  });
 };
-
-// here i have traveresed over 'accounts' array and added 'username' member in each account,
-// by calling 'extractUsername()'
-// accounts.forEach((accounts) => {
-//   accounts.username = extractUserName(accounts.owner);
-// });
-// now each account object got their respective username
-const result = extractUserName("Robinhood Kalesh Kenkar");
-console.log(result);
+addingUserName(accounts);

@@ -81,3 +81,21 @@ const updatingMovements = function (account) {
 
 updatingMovements(account1.movements);
 updatingMovements(account3.movements);
+
+// Now trynna extract username from actual name
+const extractUserName = (name) => {
+  let username = "";
+  for (const letter of name.split(" ")) {
+    username += letter[0].toLowerCase();
+  }
+  return username;
+};
+
+// here i have traveresed over 'accounts' array and added 'username' member in each account,
+// by calling 'extractUsername()'
+// accounts.forEach((accounts) => {
+//   accounts.username = extractUserName(accounts.owner);
+// });
+// now each account object got their respective username
+const result = extractUserName("Robinhood Kalesh Kenkar");
+console.log(result);

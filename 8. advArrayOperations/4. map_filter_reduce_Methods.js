@@ -15,6 +15,12 @@ const newPriceOfAllFoods = originalFoodPricesInMenu.map(function (price) {
   return price * 2;
 });
 console.log(newPriceOfAllFoods);
+
+// example - 2
+const dollars = [50, 290, 4000, 100000];
+const rupees = dollars.map((prices) => prices * 86);
+console.log(rupees);
+
 /*
 Key Notes:
 

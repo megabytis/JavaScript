@@ -84,7 +84,7 @@ updatingMovements(account3.movements);
 
 // Now trynna extract username from actual name & place those usernames in respective accounts
 const addingUserName = (accounts) => {
-  accounts.forEach(function (acc) {
+  accounts.forEach((acc) => {
     // ########### MANUAL METHOD : 1 #################
     // // first making username out of Real Name
     // let usrname = "";
@@ -92,12 +92,12 @@ const addingUserName = (accounts) => {
     //   usrname += letter[0].toLowerCase();
     // }
     // acc.username = usrname;
-    // ########### using BUILT-in method : 2 ##########
+    // ########### using BIG-CHAIN method : 2 ##########
     acc.username = acc.owner
       .toLowerCase()
       .split(" ")
       .map((n) => n[0])
-      .join();
+      .join("");
   });
 };
 addingUserName(accounts);

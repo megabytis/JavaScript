@@ -25,3 +25,12 @@ const withdrawls = [343, -223, 505, -940, 342];
 const wdAmnt = withdrawls.filter((price) => price < 0);
 console.log(wdAmnt);
 console.log(withdrawls);
+
+// example - 3
+// we can add (value, index, arrayName) like this also inside filter()
+// now, i wanna order every odd index foods
+const oddFoods = orderedFoods.filter((foods, foodIndex, entireFoodArr) => {
+  // console.log(entireFoodArr);
+  if ((foodIndex + 1) % 2 === 0) return foodIndex, foods;
+});
+console.log(oddFoods);

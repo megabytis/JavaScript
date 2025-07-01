@@ -19,6 +19,8 @@ Key Notes:
     Syntax :
     arr.reduce((accumulator, current) => { ... }, initialValue);
 */
+// ⚠️⚠️⚠️ IMPORTANT ⚠️⚠️⚠️
+// in each iteration, whatever it'll return will be stored in 'accumulater'
 
 // example - 2
 // here also we can add (index,arrName) along with (accumulator,currentValue)
@@ -38,3 +40,12 @@ const finalPnl = monthlyPnl.reduce(
   0 // this is the initial value of pnlAccumulator
 );
 console.log(finalPnl);
+
+// example - 3
+const array = [223, -111, 2323, -128, 327];
+const biggyNum = array.reduce((acc, arr) => {
+  if (acc > arr) return acc;
+  else return arr;
+  // on each iteration big value will be store insdie 'acc'
+}, array[0]);
+console.log(biggyNum);

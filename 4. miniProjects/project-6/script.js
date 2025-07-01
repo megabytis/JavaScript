@@ -80,7 +80,6 @@ const updatingMovements = function (account) {
 };
 
 updatingMovements(account1.movements);
-updatingMovements(account3.movements);
 
 // Now trynna extract username from actual name & place those usernames in respective accounts
 const addingUserName = (accounts) => {
@@ -101,3 +100,14 @@ const addingUserName = (accounts) => {
   });
 };
 addingUserName(accounts);
+
+// Now setting Currentbalance
+const settingCurrentBal = (movements) => {
+  const storeage4LebelBal = movements.reduce(
+    (valsSum, currentVal) => valsSum + currentVal,
+    0
+  );
+  labelBalance.textContent = `₹${storeage4LebelBal}`;
+};
+settingCurrentBal(account4.movements);
+console.log(labelBalance.textContent);

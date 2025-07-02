@@ -109,5 +109,22 @@ const settingCurrentBal = (movements) => {
   );
   labelBalance.textContent = `₹${storeage4LebelBal}`;
 };
-settingCurrentBal(account4.movements);
-console.log(labelBalance.textContent);
+settingCurrentBal(account1.movements);
+// console.log(labelBalance.textContent);
+
+// Now setting total IN & OUT i.e. total deposits & withdrawl
+const summaryIn = (movements) => {
+  const totalDeposits = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, curr) => acc + curr);
+
+  labelSumIn.textContent = `₹${totalDeposits}`;
+
+  const totalWithdrawl = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, curr) => acc + curr);
+
+  labelSumOut.textContent = `₹${Math.abs(totalWithdrawl)}`;
+  // here Math.abs() will remove the -ve sign from withdrawl
+};
+summaryIn(account1.movements);

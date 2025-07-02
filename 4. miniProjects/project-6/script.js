@@ -112,19 +112,29 @@ const settingCurrentBal = (movements) => {
 settingCurrentBal(account1.movements);
 // console.log(labelBalance.textContent);
 
-// Now setting total IN & OUT i.e. total deposits & withdrawl
-const summaryIn = (movements) => {
+// Now setting total IN, OUT & INTEREST i.e. total deposits, withdrawl & interest user get :)
+const summary = (movements) => {
+  // IN
   const totalDeposits = movements
     .filter((mov) => mov > 0)
     .reduce((acc, curr) => acc + curr);
 
   labelSumIn.textContent = `₹${totalDeposits}`;
 
+  // OUT
   const totalWithdrawl = movements
     .filter((mov) => mov < 0)
     .reduce((acc, curr) => acc + curr);
 
   labelSumOut.textContent = `₹${Math.abs(totalWithdrawl)}`;
   // here Math.abs() will remove the -ve sign from withdrawl
+
+  // INTEREST
+  const totalInterest = movements
+    .filter((mov) => mov > 0)
+    .map((price) => (price * 1.8) / 100)
+    .reduce((acc, curr) => acc + curr, 0);
+  labelSumInterest.textContent = `₹${parseFloat(totalInterest.toFixed(2))}`;
+  // here i've used parsseFloat(). toFixed() methods to display interest money upto a fixed decimal point
 };
-summaryIn(account1.movements);
+summary(account1.movements);

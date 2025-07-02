@@ -61,26 +61,6 @@ const inputLoanAmount = document.querySelector(".form__input--loan-amount");
 const inputCloseUsername = document.querySelector(".form__input--user");
 const inputClosePin = document.querySelector(".form__input--pin");
 
-// Updating 'movements' div
-const updatingMovements = function (account) {
-  account.forEach(function (value, index) {
-    let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
-
-    const htmlElement = `
-        <div class="movements__row">
-          <div class="movements__type movements__type--${depositOrWithdrawl}">
-            ${index} ${depositOrWithdrawl}
-          </div>
-          <div class="movements__value">₹${value}</div>
-        </div>
-  `;
-
-    containerMovements.insertAdjacentHTML("afterbegin", htmlElement);
-  });
-};
-
-updatingMovements(account1.movements);
-
 // Now trynna extract username from actual name & place those usernames in respective accounts
 const addingUserName = (accounts) => {
   accounts.forEach((acc) => {
@@ -101,19 +81,35 @@ const addingUserName = (accounts) => {
 };
 addingUserName(accounts);
 
+// Updating 'movements' div
+const updatingMovements = function (account) {
+  account.forEach(function (value, index) {
+    let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
+
+    const htmlElement = `
+        <div class="movements__row">
+          <div class="movements__type movements__type--${depositOrWithdrawl}">
+            ${index} ${depositOrWithdrawl}
+          </div>
+          <div class="movements__value">₹${value}</div>
+        </div>
+  `;
+
+    containerMovements.insertAdjacentHTML("afterbegin", htmlElement);
+  });
+}; // i'm gonna call this when user will click 'login' button & after credentials match
+
 // Now setting Currentbalance
 const settingCurrentBal = (movements) => {
-  const storeage4LebelBal = movements.reduce(
-    (valsSum, currentVal) => valsSum + currentVal,
-    0
+  const storage4LebelBal = movements.reduce(
+    (valsSum, currentVal) => valsSum + currentVal
   );
-  labelBalance.textContent = `₹${storeage4LebelBal}`;
+  labelBalance.textContent = `₹${storage4LebelBal}`;
 };
-settingCurrentBal(account1.movements);
-// console.log(labelBalance.textContent);
 
 // Now setting total IN, OUT & INTEREST i.e. total deposits, withdrawl & interest user get :)
-const summary = (movements) => {
+// Displaying summary
+const summary = (movements, interestRate) => {
   // IN
   const totalDeposits = movements
     .filter((mov) => mov > 0)
@@ -132,9 +128,42 @@ const summary = (movements) => {
   // INTEREST
   const totalInterest = movements
     .filter((mov) => mov > 0)
-    .map((price) => (price * 1.8) / 100)
+    .map((price) => (price * interestRate) / 100)
     .reduce((acc, curr) => acc + curr, 0);
   labelSumInterest.textContent = `₹${parseFloat(totalInterest.toFixed(2))}`;
   // here i've used parsseFloat(). toFixed() methods to display interest money upto a fixed decimal point
 };
-summary(account1.movements);
+
+// Now handling the login process :)
+// login Button
+let loginAcc;
+btnLogin.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  loginAcc = accounts.find((acc) => acc.username === inputLoginUsername.value);
+  // console.log(loginAcc);
+
+  // Displaying UI messege
+  if (
+    loginAcc.username === inputLoginUsername.value &&
+    loginAcc.pin === Number(inputLoginPin.value)
+  ) {
+    labelWelcome.textContent = `Welcome back, ${loginAcc.owner.split(" ")[0]}`;
+
+    containerApp.style.opacity = 100;
+  } else {
+    alert(`Invalid username or pin`);
+  }
+
+  // now i want user login, pin input field clear after loggin in
+  inputLoginUsername.value = inputLoginPin.value = "";
+
+  // Displaying movements
+  updatingMovements(loginAcc.movements);
+
+  // Displaying Current balance
+  settingCurrentBal(loginAcc.movements);
+
+  // Displaying Summary
+  summary(loginAcc.movements, loginAcc.interestRate);
+});

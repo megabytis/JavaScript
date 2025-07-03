@@ -183,6 +183,7 @@ btnTransfer.addEventListener("click", (e) => {
     (acc) => acc.username === inputTransferTo.value
   );
 
+  // if the username to which user is gonna transfer money is INVALID, then show alert
   if (typeof findAccount === "undefined") {
     alert("INVALID USERNAME");
     inputTransferTo.value = inputTransferAmount.value = "";
@@ -201,7 +202,7 @@ btnTransfer.addEventListener("click", (e) => {
   }
 
   // 1st removing previous display movements
-  else containerMovements.innerHTML = "";
+  containerMovements.innerHTML = "";
   // Then redisplaying updated movements
   updatingMovements(loginAcc.movements);
   // ⚠️⚠️ IMPORTANT ⚠️⚠️

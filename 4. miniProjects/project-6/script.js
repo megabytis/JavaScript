@@ -100,8 +100,9 @@ const updatingMovements = function (account) {
 }; // i'm gonna call this when user will click 'login' button & after credentials match
 
 // Now setting Currentbalance
+let storage4LebelBal;
 const settingCurrentBal = (movements) => {
-  const storage4LebelBal = movements.reduce(
+  storage4LebelBal = movements.reduce(
     (valsSum, currentVal) => valsSum + currentVal
   );
   labelBalance.textContent = `₹${storage4LebelBal}`;
@@ -140,6 +141,11 @@ let loginAcc;
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
 
+  // clearing transaction HTMLs, if there is any leftover :)
+  containerMovements.innerHTML = "";
+  // clear if any input box is filled
+  inputTransferTo.value = inputTransferAmount.value = "";
+
   loginAcc = accounts.find((acc) => acc.username === inputLoginUsername.value);
   // console.log(loginAcc);
 
@@ -166,4 +172,50 @@ btnLogin.addEventListener("click", (e) => {
 
   // Displaying Summary
   summary(loginAcc.movements, loginAcc.interestRate);
+});
+
+// btntransfer, inputtransferto, inputtransferamount
+btnTransfer.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  // now i'll search for the account of which username have used to transfer money
+  let findAccount = accounts.find(
+    (acc) => acc.username === inputTransferTo.value
+  );
+
+  if (typeof findAccount === "undefined") {
+    alert("INVALID USERNAME");
+    inputTransferTo.value = inputTransferAmount.value = "";
+  }
+
+  if (findAccount.username === inputTransferTo.value) {
+    // before transfering money to another account 1st check wheather u've sufficient balance or not
+    if (storage4LebelBal >= Number(inputTransferAmount.value)) {
+      // i got the account & have sufficient money,
+      // now i'll push the money to the user's movements array
+      findAccount.movements.push(Number(inputTransferAmount.value));
+      loginAcc.movements.push(Number(inputTransferAmount.value) * -1);
+    } else {
+      alert("Not enough BALANCE 💵");
+    }
+  }
+
+  // 1st removing previous display movements
+  else containerMovements.innerHTML = "";
+  // Then redisplaying updated movements
+  updatingMovements(loginAcc.movements);
+  // ⚠️⚠️ IMPORTANT ⚠️⚠️
+  // so, jadi kichi old html hateiki nuaan add karibaku chanhuchha,
+  // then aga sei entire HTML container ku khali karidia by <name>.innerHTML = ''
+  // then re-update / add kara
+
+  // Displaying Current balance
+  settingCurrentBal(loginAcc.movements);
+
+  // Displaying Summary
+  summary(loginAcc.movements, loginAcc.interestRate);
+
+  // now i wanna clear the input fields of TRANSFER MONEY section
+  inputTransferTo.value = inputTransferAmount.value = "";
+  // console.log(Number(inputTransferAmount.value));
 });

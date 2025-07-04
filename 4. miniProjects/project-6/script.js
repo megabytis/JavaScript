@@ -135,16 +135,18 @@ const summary = (movements, interestRate) => {
   // here i've used parsseFloat(). toFixed() methods to display interest money upto a fixed decimal point
 };
 
-// Now handling the login process :)
-// login Button
+// Now handling all Buttons, let's  :)
+
+// 🔵 LOGIN button
 let loginAcc;
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
 
-  // clearing transaction HTMLs, if there is any leftover :)
-  containerMovements.innerHTML = "";
-  // clear if any input box is filled
-  inputTransferTo.value = inputTransferAmount.value = "";
+  // First changing welcome messege to login messege
+  labelWelcome.textContent = `Log in to get started`;
+
+  // Now hiding UI
+  containerApp.style.opacity = 0;
 
   loginAcc = accounts.find((acc) => acc.username === inputLoginUsername.value);
   // console.log(loginAcc);
@@ -174,7 +176,7 @@ btnLogin.addEventListener("click", (e) => {
   summary(loginAcc.movements, loginAcc.interestRate);
 });
 
-// btntransfer, inputtransferto, inputtransferamount
+// 🔵 TRANSFER MONEY button
 btnTransfer.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -221,7 +223,7 @@ btnTransfer.addEventListener("click", (e) => {
   // console.log(Number(inputTransferAmount.value));
 });
 
-// Closing account
+// 🔵 CLOSE ACCOUNT button
 btnClose.addEventListener("click", function (e) {
   e.preventDefault();
 
@@ -233,7 +235,13 @@ btnClose.addEventListener("click", function (e) {
       (acc) => acc.username === loginAcc.username
     );
 
-    // removing user's object from 'accounts' array using it's index number
+    // First changing welcome messege to login messege
+    labelWelcome.textContent = `Log in to get started`;
+
+    // Now hiding UI
+    containerApp.style.opacity = 0;
+
+    // Then now removing user's object from 'accounts' array using it's index number
     accounts.splice(indexOfLoginAccount, 1);
   }
 

@@ -220,3 +220,24 @@ btnTransfer.addEventListener("click", (e) => {
   inputTransferTo.value = inputTransferAmount.value = "";
   // console.log(Number(inputTransferAmount.value));
 });
+
+// Closing account
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === loginAcc.username &&
+    Number(inputClosePin.value) === loginAcc.pin
+  ) {
+    const indexOfLoginAccount = accounts.findIndex(
+      (acc) => acc.username === loginAcc.username
+    );
+
+    // removing user's object from 'accounts' array using it's index number
+    accounts.splice(indexOfLoginAccount, 1);
+  }
+
+  // Now again getting the Starting page
+
+  inputCloseUsername.value = inputClosePin.value = "";
+});

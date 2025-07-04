@@ -83,6 +83,9 @@ addingUserName(accounts);
 
 // Updating 'movements' div
 const updatingMovements = function (account) {
+  // 1st removing previous display movements, if present any
+  containerMovements.innerHTML = "";
+
   account.forEach(function (value, index) {
     let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
 
@@ -135,6 +138,17 @@ const summary = (movements, interestRate) => {
   // here i've used parsseFloat(). toFixed() methods to display interest money upto a fixed decimal point
 };
 
+const updateEverything = () => {
+  // Displaying movements
+  updatingMovements(loginAcc.movements);
+
+  // Displaying Current balance
+  settingCurrentBal(loginAcc.movements);
+
+  // Displaying Summary
+  summary(loginAcc.movements, loginAcc.interestRate);
+};
+
 // Now handling all Buttons, let's  :)
 
 // 🔵 LOGIN button
@@ -166,14 +180,8 @@ btnLogin.addEventListener("click", (e) => {
   // now i want user login, pin input field clear after loggin in
   inputLoginUsername.value = inputLoginPin.value = "";
 
-  // Displaying movements
-  updatingMovements(loginAcc.movements);
-
-  // Displaying Current balance
-  settingCurrentBal(loginAcc.movements);
-
-  // Displaying Summary
-  summary(loginAcc.movements, loginAcc.interestRate);
+  // update everything
+  updateEverything();
 });
 
 // 🔵 TRANSFER MONEY button
@@ -203,20 +211,21 @@ btnTransfer.addEventListener("click", (e) => {
     }
   }
 
-  // 1st removing previous display movements
-  containerMovements.innerHTML = "";
-  // Then redisplaying updated movements
-  updatingMovements(loginAcc.movements);
-  // ⚠️⚠️ IMPORTANT ⚠️⚠️
-  // so, jadi kichi old html hateiki nuaan add karibaku chanhuchha,
-  // then aga sei entire HTML container ku khali karidia by <name>.innerHTML = ''
-  // then re-update / add kara
+  // // Then redisplaying updated movements
+  // updatingMovements(loginAcc.movements);
+  // // ⚠️⚠️ IMPORTANT ⚠️⚠️
+  // // so, jadi kichi old html hateiki nuaan add karibaku chanhuchha,
+  // // then aga sei entire HTML container ku khali karidia by <name>.innerHTML = ''
+  // // then re-update / add kara
 
-  // Displaying Current balance
-  settingCurrentBal(loginAcc.movements);
+  // // Displaying Current balance
+  // settingCurrentBal(loginAcc.movements);
 
-  // Displaying Summary
-  summary(loginAcc.movements, loginAcc.interestRate);
+  // // Displaying Summary
+  // summary(loginAcc.movements, loginAcc.interestRate);
+  // --------------or-----------
+  // use directly updateEverything() :)
+  updateEverything();
 
   // now i wanna clear the input fields of TRANSFER MONEY section
   inputTransferTo.value = inputTransferAmount.value = "";
@@ -248,4 +257,24 @@ btnClose.addEventListener("click", function (e) {
   // Now again getting the Starting page
 
   inputCloseUsername.value = inputClosePin.value = "";
+});
+
+// 🔵 REQUEST LOAN button
+btnLoan.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const inputtedAmount = Number(inputLoanAmount.value);
+
+  if (
+    inputtedAmount > 0 &&
+    loginAcc.movements.some((move) => move >= inputtedAmount * 0.1)
+  ) {
+    loginAcc.movements.push(inputtedAmount);
+  }
+
+  // clearing input field
+  inputLoanAmount.value = "";
+
+  //  Then again update the UI
+  updateEverything();
 });

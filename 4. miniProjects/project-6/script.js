@@ -145,11 +145,11 @@ btnLogin.addEventListener("click", (e) => {
   // First changing welcome messege to login messege
   labelWelcome.textContent = `Log in to get started`;
 
-  // Now hiding UI
-  containerApp.style.opacity = 0;
-
   loginAcc = accounts.find((acc) => acc.username === inputLoginUsername.value);
   // console.log(loginAcc);
+
+  // Hiding previously setted movements
+  containerMovements.innerHTML = "";
 
   // Displaying UI messege
   if (

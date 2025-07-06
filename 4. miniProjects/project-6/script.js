@@ -82,11 +82,16 @@ const addingUserName = (accounts) => {
 addingUserName(accounts);
 
 // Updating 'movements' div
-const updatingMovements = function (account) {
+const updatingMovements = function (movements, isSorted = false) {
+  // here i've passed soted by default 'false'
   // 1st removing previous display movements, if present any
   containerMovements.innerHTML = "";
 
-  account.forEach(function (value, index) {
+  // SORTING
+  const moves = isSorted ? [...movements].sort((x, y) => x - y) : movements;
+
+  // adding Movements
+  moves.forEach(function (value, index) {
     let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
 
     const htmlElement = `
@@ -277,4 +282,13 @@ btnLoan.addEventListener("click", function (e) {
 
   //  Then again update the UI
   updateEverything();
+});
+
+// 🔵 SORT button
+let isSorted = false;
+btnSort.addEventListener("click", (e) => {
+  e.preventDefault();
+  console.log(90);
+  updatingMovements(loginAcc.movements, !isSorted);
+  isSorted = !isSorted;
 });

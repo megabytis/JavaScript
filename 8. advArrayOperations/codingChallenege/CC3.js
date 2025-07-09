@@ -1,7 +1,7 @@
 "use strict";
 
 ///////////////////////////////////////
-// Coding Challenge #4
+// Coding Challenge #3
 
 /*
 This time, Julia and Kate are studying the activity levels of different dog breeds.

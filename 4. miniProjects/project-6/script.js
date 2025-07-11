@@ -33,6 +33,7 @@ const account2 = {
     "2020-08-22T09:30:21.763Z",
     "2020-09-15T14:55:10.421Z",
     "2020-10-30T18:20:05.317Z",
+    "2020-08-19T11:30:21.540Z",
   ],
   interestRate: 1.5,
   pin: 2222,
@@ -48,6 +49,8 @@ const account3 = {
     "2020-03-22T14:25:33.890Z",
     "2020-05-30T11:15:22.540Z",
     "2020-07-11T16:40:10.230Z",
+    "2020-06-09T13:15:47.532Z",
+    "2020-07-28T23:36:17.929Z",
   ],
   interestRate: 0.7,
   pin: 3333,
@@ -62,9 +65,6 @@ const account4 = {
     "2020-04-15T17:30:22.410Z",
     "2020-05-28T10:45:33.120Z",
     "2020-07-03T14:15:47.890Z",
-    "2020-08-19T11:30:21.540Z",
-    "2020-09-25T16:55:10.230Z",
-    "2020-10-10T19:20:05.120Z",
   ],
   interestRate: 1,
   pin: 4444,
@@ -119,23 +119,44 @@ const addingUserName = (accounts) => {
 addingUserName(accounts);
 
 // Updating 'movements' div
-const updatingMovements = function (movements, isSorted = false) {
+const updatingMovements = function (acc, isSorted = false) {
   // here i've passed soted by default 'false'
   // 1st removing previous display movements, if present any
   containerMovements.innerHTML = "";
 
   // SORTING
-  const moves = isSorted ? [...movements].sort((x, y) => x - y) : movements;
+  const moves = isSorted
+    ? [...acc.movements].sort((x, y) => x - y)
+    : acc.movements;
 
   // adding Movements
   moves.forEach(function (value, index) {
     let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
+
+    const date = new Date(acc.movementsDates[index]);
+    const displayDate = Math.floor((new Date() - date) / (1000 * 60 * 60 * 24));
+    // ;
+    console.log(date);
+
+    // Helper function to format the date display
+    function formatMovementDate(date, daysPassed) {
+      if (daysPassed === 0) return "Today";
+      if (daysPassed === 1) return "Yesterday";
+      if (daysPassed <= 7) return `${daysPassed} days ago`;
+
+      // For older dates, show actual date (DD/MM/YYYY)
+      const day = `${date.getDate()}`.padStart(2, "0");
+      const month = `${date.getMonth() + 1}`.padStart(2, "0");
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
+    }
 
     const htmlElement = `
         <div class="movements__row">
           <div class="movements__type movements__type--${depositOrWithdrawl}">
             ${index} ${depositOrWithdrawl}
           </div>
+          <div class="movements__date">${displayDate} days ago</div>
           <div class="movements__value">₹${value}</div>
         </div>
   `;
@@ -146,8 +167,8 @@ const updatingMovements = function (movements, isSorted = false) {
 
 // Now setting Currentbalance
 let storage4LebelBal;
-const settingCurrentBal = (movements) => {
-  storage4LebelBal = movements.reduce(
+const settingCurrentBal = (acc) => {
+  storage4LebelBal = acc.movements.reduce(
     (valsSum, currentVal) => valsSum + currentVal
   );
   labelBalance.textContent = `₹${storage4LebelBal}`;
@@ -155,16 +176,16 @@ const settingCurrentBal = (movements) => {
 
 // Now setting total IN, OUT & INTEREST i.e. total deposits, withdrawl & interest user get :)
 // Displaying summary
-const summary = (movements, interestRate) => {
+const summary = (acc) => {
   // IN
-  const totalDeposits = movements
+  const totalDeposits = acc.movements
     .filter((mov) => mov > 0)
     .reduce((acc, curr) => acc + curr);
 
   labelSumIn.textContent = `₹${totalDeposits}`;
 
   // OUT
-  const totalWithdrawl = movements
+  const totalWithdrawl = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, curr) => acc + curr);
 
@@ -172,9 +193,9 @@ const summary = (movements, interestRate) => {
   // here Math.abs() will remove the -ve sign from withdrawl
 
   // INTEREST
-  const totalInterest = movements
+  const totalInterest = acc.movements
     .filter((mov) => mov > 0)
-    .map((price) => (price * interestRate) / 100)
+    .map((price) => (price * acc.interestRate) / 100)
     .reduce((acc, curr) => acc + curr, 0);
   labelSumInterest.textContent = `₹${parseFloat(totalInterest.toFixed(2))}`;
   // here i've used parsseFloat(). toFixed() methods to display interest money upto a fixed decimal point
@@ -182,13 +203,13 @@ const summary = (movements, interestRate) => {
 
 const updateEverything = () => {
   // Displaying movements
-  updatingMovements(loginAcc.movements);
+  updatingMovements(loginAcc);
 
   // Displaying Current balance
-  settingCurrentBal(loginAcc.movements);
+  settingCurrentBal(loginAcc);
 
   // Displaying Summary
-  summary(loginAcc.movements, loginAcc.interestRate);
+  summary(loginAcc);
 };
 
 // Now handling all Buttons, let's  :)
@@ -222,6 +243,16 @@ btnLogin.addEventListener("click", (e) => {
   // now i want user login, pin input field clear after loggin in
   inputLoginUsername.value = inputLoginPin.value = "";
 
+  // Updating date & time in front page
+  const date = new Date();
+  const day = `${date.getDate()}`.padStart(2, 0);
+  const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  const year = date.getFullYear();
+  const hour = date.getHours();
+  const min = date.getMinutes();
+  const sec = date.getSeconds();
+  labelDate.textContent = `${day}/${month}/${year} , ${hour}:${min}:${sec}`;
+
   // update everything
   updateEverything();
 });
@@ -252,6 +283,10 @@ btnTransfer.addEventListener("click", (e) => {
       alert("Not enough BALANCE 💵");
     }
   }
+
+  // add transfer Dates
+  loginAcc.movementsDates.push(new Date());
+  findAccount.movementsDates.push(new Date());
 
   // // Then redisplaying updated movements
   // updatingMovements(loginAcc.movements);
@@ -314,6 +349,9 @@ btnLoan.addEventListener("click", function (e) {
     loginAcc.movements.push(inputtedAmount);
   }
 
+  // add taking loan Date
+  loginAcc.movementsDates.push(new Date());
+
   // clearing input field
   inputLoanAmount.value = "";
 
@@ -326,6 +364,6 @@ let isSorted = false;
 btnSort.addEventListener("click", (e) => {
   e.preventDefault();
   console.log(90);
-  updatingMovements(loginAcc.movements, !isSorted);
+  updatingMovements(loginAcc, !isSorted);
   isSorted = !isSorted;
 });

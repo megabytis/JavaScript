@@ -133,10 +133,8 @@ const updatingMovements = function (acc, isSorted = false) {
   moves.forEach(function (value, index) {
     let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
 
+    // adding Date
     const date = new Date(acc.movementsDates[index]);
-    const displayDate = Math.floor((new Date() - date) / (1000 * 60 * 60 * 24));
-    // ;
-    console.log(date);
 
     // Helper function to format the date display
     function formatMovementDate(date, daysPassed) {
@@ -150,14 +148,20 @@ const updatingMovements = function (acc, isSorted = false) {
       const year = date.getFullYear();
       return `${day}/${month}/${year}`;
     }
+    // Calculate days passed since transaction
+    const daysPassed = Math.floor((new Date() - date) / (1000 * 60 * 60 * 24));
+    console.log(daysPassed);
+
+    // Format the display text
+    const displayDate = formatMovementDate(date, daysPassed);
 
     const htmlElement = `
         <div class="movements__row">
           <div class="movements__type movements__type--${depositOrWithdrawl}">
-            ${index} ${depositOrWithdrawl}
+            ${index + 1} ${depositOrWithdrawl}
           </div>
           <div class="movements__date">${displayDate} days ago</div>
-          <div class="movements__value">₹${value}</div>
+          <div class="movements__value">₹${value.toFixed(2)}</div>
         </div>
   `;
 

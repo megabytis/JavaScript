@@ -43,10 +43,12 @@ const date2 = new Date("2023-07-20");
 console.log("\nDate Math:");
 console.log("Difference in ms:", date2 - date1);
 console.log("Add 5 days:", new Date(date1.getTime() + 5 * 24 * 60 * 60 * 1000));
+// here, adding 5 days -> *24 i.e. convert days to hours -> *60 i.e. convert hours to minutes -> *60 i.e. minutes to seconds -> *1000 i.e. sec to millisec by multiplying all
 console.log(
   "Days between:",
   Math.round((date2 - date1) / (1000 * 60 * 60 * 24))
 );
+// here the reverse, i.e. milisec -> sec -> minutes -> hours -> days , by deviding all
 
 // ===== 6. COMPARISON =====
 console.log("\nComparison:");

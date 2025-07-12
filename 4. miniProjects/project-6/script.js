@@ -261,14 +261,16 @@ btnLogin.addEventListener("click", (e) => {
   inputLoginUsername.value = inputLoginPin.value = "";
 
   // Updating date & time in front page
-  const date = new Date();
-  const day = `${date.getDate()}`.padStart(2, 0);
-  const month = `${date.getMonth() + 1}`.padStart(2, 0);
-  const year = date.getFullYear();
-  const hour = date.getHours();
-  const min = date.getMinutes();
-  const sec = date.getSeconds();
-  labelDate.textContent = `${day}/${month}/${year} , ${hour}:${min}:${sec}`;
+  // const date = new Date();
+  // const day = `${date.getDate()}`.padStart(2, 0);
+  // const month = `${date.getMonth() + 1}`.padStart(2, 0);
+  // const year = date.getFullYear();
+  // const hour = date.getHours();
+  // const min = date.getMinutes();
+  // const sec = date.getSeconds();
+  // labelDate.textContent = `${day}/${month}/${year} , ${hour}:${min}:${sec}`;
+  // --------OR-----------(by using Intl)
+  labelDate.textContent = new Intl.DateTimeFormat("en-IN").format(new Date());
 
   // update everything
   updateEverything();

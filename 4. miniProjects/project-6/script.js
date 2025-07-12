@@ -12,11 +12,11 @@ const account1 = {
     "2019-11-18T21:31:17.178Z",
     "2019-12-23T07:42:02.383Z",
     "2020-01-28T09:15:04.904Z",
-    "2020-04-01T10:17:24.185Z",
-    "2020-05-08T14:11:59.604Z",
-    "2020-07-26T17:01:17.194Z",
-    "2020-07-28T23:36:17.929Z",
-    "2020-08-01T10:51:36.790Z",
+    "2023-04-01T10:17:24.185Z",
+    "2024-05-08T14:11:59.604Z",
+    "2025-05-26T17:01:17.194Z",
+    "2025-07-02T23:36:17.929Z",
+    "2025-07-10T10:51:36.790Z",
   ],
   interestRate: 1.2, // %
   pin: 1111,
@@ -27,13 +27,13 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   movementsDates: [
     "2020-02-14T08:22:45.120Z",
-    "2020-03-05T16:30:12.845Z",
-    "2020-04-18T11:45:33.210Z",
-    "2020-06-09T13:15:47.532Z",
-    "2020-08-22T09:30:21.763Z",
-    "2020-09-15T14:55:10.421Z",
-    "2020-10-30T18:20:05.317Z",
-    "2020-08-19T11:30:21.540Z",
+    "2021-03-05T16:30:12.845Z",
+    "2022-04-18T11:45:33.210Z",
+    "2023-06-09T13:15:47.532Z",
+    "2024-08-22T09:30:21.763Z",
+    "2024-09-15T14:55:10.421Z",
+    "2025-1-30T18:20:05.317Z",
+    "2025-07-11T11:30:21.540Z",
   ],
   interestRate: 1.5,
   pin: 2222,
@@ -44,13 +44,13 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   movementsDates: [
     "2019-09-05T12:10:30.450Z",
-    "2019-10-12T15:42:18.720Z",
-    "2020-01-15T10:30:45.120Z",
-    "2020-03-22T14:25:33.890Z",
-    "2020-05-30T11:15:22.540Z",
-    "2020-07-11T16:40:10.230Z",
-    "2020-06-09T13:15:47.532Z",
-    "2020-07-28T23:36:17.929Z",
+    "2020-10-12T15:42:18.720Z",
+    "2022-01-15T10:30:45.120Z",
+    "2024-03-22T14:25:33.890Z",
+    "2024-09-30T11:15:22.540Z",
+    "2025-05-11T16:40:10.230Z",
+    "2025-06-09T13:15:47.532Z",
+    "2025-07-12T06:36:17.929Z",
   ],
   interestRate: 0.7,
   pin: 3333,
@@ -62,9 +62,9 @@ const account4 = {
   movementsDates: [
     "2020-01-03T09:12:45.320Z",
     "2020-02-20T13:25:10.750Z",
-    "2020-04-15T17:30:22.410Z",
-    "2020-05-28T10:45:33.120Z",
-    "2020-07-03T14:15:47.890Z",
+    "2024-04-15T17:30:22.410Z",
+    "2025-07-06T10:45:33.120Z",
+    "2025-07-12T14:15:47.890Z",
   ],
   interestRate: 1,
   pin: 4444,
@@ -118,6 +118,29 @@ const addingUserName = (accounts) => {
 };
 addingUserName(accounts);
 
+function formatMovementDate(date) {
+  const now = new Date();
+  const secondsPassed = (now - date) / 1000;
+  const daysPassed = Math.floor(secondsPassed / (60 * 60 * 24));
+  const weeksPassed = Math.floor(daysPassed / 7);
+  const monthsPassed = Math.floor(daysPassed / 30);
+  const yearsPassed = Math.floor(daysPassed / 365);
+
+  if (secondsPassed < 60) return "Just now";
+  if (secondsPassed < 3600)
+    return `${Math.floor(secondsPassed / 60)} minutes ago`;
+  if (secondsPassed < 86400)
+    return `${Math.floor(secondsPassed / 3600)} hours ago`;
+  if (daysPassed === 0) return "Today";
+  if (daysPassed === 1) return "Yesterday";
+  if (daysPassed <= 7) return `${daysPassed} days ago`;
+  if (weeksPassed <= 4)
+    return `${weeksPassed} week${weeksPassed === 1 ? "" : "s"} ago`;
+  if (monthsPassed < 12)
+    return `${monthsPassed} month${monthsPassed === 1 ? "" : "s"} ago`;
+  return `${yearsPassed} year${yearsPassed === 1 ? "" : "s"} ago`;
+}
+
 // Updating 'movements' div
 const updatingMovements = function (acc, isSorted = false) {
   // here i've passed soted by default 'false'
@@ -137,33 +160,19 @@ const updatingMovements = function (acc, isSorted = false) {
     const date = new Date(acc.movementsDates[index]);
 
     // Helper function to format the date display
-    function formatMovementDate(date, daysPassed) {
-      if (daysPassed === 0) return "Today";
-      if (daysPassed === 1) return "Yesterday";
-      if (daysPassed <= 7) return `${daysPassed} days ago`;
-
-      // For older dates, show actual date (DD/MM/YYYY)
-      const day = `${date.getDate()}`.padStart(2, "0");
-      const month = `${date.getMonth() + 1}`.padStart(2, "0");
-      const year = date.getFullYear();
-      return `${day}/${month}/${year}`;
-    }
-    // Calculate days passed since transaction
-    const daysPassed = Math.floor((new Date() - date) / (1000 * 60 * 60 * 24));
-    console.log(daysPassed);
 
     // Format the display text
-    const displayDate = formatMovementDate(date, daysPassed);
+    const displayDate = formatMovementDate(date);
 
     const htmlElement = `
         <div class="movements__row">
           <div class="movements__type movements__type--${depositOrWithdrawl}">
             ${index + 1} ${depositOrWithdrawl}
           </div>
-          <div class="movements__date">${displayDate} days ago</div>
+          <div class="movements__date">${displayDate}</div>
           <div class="movements__value">₹${value.toFixed(2)}</div>
         </div>
-  `;
+    `;
 
     containerMovements.insertAdjacentHTML("afterbegin", htmlElement);
   });

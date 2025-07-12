@@ -118,51 +118,55 @@ const addingUserName = (accounts) => {
 };
 addingUserName(accounts);
 
-function formatMovementDate(date) {
-  const now = new Date();
-  const secondsPassed = (now - date) / 1000;
-  const daysPassed = Math.floor(secondsPassed / (60 * 60 * 24));
-  const weeksPassed = Math.floor(daysPassed / 7);
-  const monthsPassed = Math.floor(daysPassed / 30);
-  const yearsPassed = Math.floor(daysPassed / 365);
-
-  if (secondsPassed < 60) return "Just now";
-  if (secondsPassed < 3600)
-    return `${Math.floor(secondsPassed / 60)} minutes ago`;
-  if (secondsPassed < 86400)
-    return `${Math.floor(secondsPassed / 3600)} hours ago`;
-  if (daysPassed === 0) return "Today";
-  if (daysPassed === 1) return "Yesterday";
-  if (daysPassed <= 7) return `${daysPassed} days ago`;
-  if (weeksPassed <= 4)
-    return `${weeksPassed} week${weeksPassed === 1 ? "" : "s"} ago`;
-  if (monthsPassed < 12)
-    return `${monthsPassed} month${monthsPassed === 1 ? "" : "s"} ago`;
-  return `${yearsPassed} year${yearsPassed === 1 ? "" : "s"} ago`;
-}
-
 // Updating 'movements' div
 const updatingMovements = function (acc, isSorted = false) {
   // here i've passed soted by default 'false'
   // 1st removing previous display movements, if present any
   containerMovements.innerHTML = "";
 
+  // now combining movements with Dates to sync both
+  const combinedDatesMovements = acc.movements.map((movs, index) => ({
+    move: movs,
+    moveDates: acc.movementsDates.at(index),
+  }));
+
   // SORTING
-  const moves = isSorted
-    ? [...acc.movements].sort((x, y) => x - y)
-    : acc.movements;
+  if (isSorted) combinedDatesMovements.sort((a, b) => a.move - b.move);
 
   // adding Movements
-  moves.forEach(function (value, index) {
-    let depositOrWithdrawl = value > 0 ? "deposit" : "withdrawal";
+  combinedDatesMovements.forEach(function (obj, index) {
+    const { move, moveDates } = obj;
+    let depositOrWithdrawl = move > 0 ? "deposit" : "withdrawal";
 
     // adding Date
-    const date = new Date(acc.movementsDates[index]);
-
-    // Helper function to format the date display
+    const date = new Date(moveDates);
 
     // Format the display text
     const displayDate = formatMovementDate(date);
+
+    // Helper function to format the date display
+    function formatMovementDate(date) {
+      const now = new Date();
+      const secondsPassed = (now - date) / 1000;
+      const daysPassed = Math.floor(secondsPassed / (60 * 60 * 24));
+      const weeksPassed = Math.floor(daysPassed / 7);
+      const monthsPassed = Math.floor(daysPassed / 30);
+      const yearsPassed = Math.floor(daysPassed / 365);
+
+      if (secondsPassed < 60) return "Just now";
+      if (secondsPassed < 3600)
+        return `${Math.floor(secondsPassed / 60)} minutes ago`;
+      if (secondsPassed < 86400)
+        return `${Math.floor(secondsPassed / 3600)} hours ago`;
+      if (daysPassed === 0) return "Today";
+      if (daysPassed === 1) return "Yesterday";
+      if (daysPassed <= 7) return `${daysPassed} days ago`;
+      if (weeksPassed <= 4)
+        return `${weeksPassed} week${weeksPassed === 1 ? "" : "s"} ago`;
+      if (monthsPassed < 12)
+        return `${monthsPassed} month${monthsPassed === 1 ? "" : "s"} ago`;
+      return `${yearsPassed} year${yearsPassed === 1 ? "" : "s"} ago`;
+    }
 
     const htmlElement = `
         <div class="movements__row">
@@ -170,7 +174,7 @@ const updatingMovements = function (acc, isSorted = false) {
             ${index + 1} ${depositOrWithdrawl}
           </div>
           <div class="movements__date">${displayDate}</div>
-          <div class="movements__value">₹${value.toFixed(2)}</div>
+          <div class="movements__value">₹${move.toFixed(2)}</div>
         </div>
     `;
 

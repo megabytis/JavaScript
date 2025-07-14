@@ -118,6 +118,14 @@ const addingUserName = (accounts) => {
 };
 addingUserName(accounts);
 
+// showing every money according to this Intl format
+const formatCurrency = (money) => {
+  return new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+  }).format(money);
+};
+
 // Updating 'movements' div
 const updatingMovements = function (acc, isSorted = false) {
   // here i've passed soted by default 'false'
@@ -174,7 +182,7 @@ const updatingMovements = function (acc, isSorted = false) {
             ${index + 1} ${depositOrWithdrawl}
           </div>
           <div class="movements__date">${displayDate}</div>
-          <div class="movements__value">₹${move.toFixed(2)}</div>
+          <div class="movements__value">${formatCurrency(move.toFixed(2))}</div>
         </div>
     `;
 
@@ -188,7 +196,7 @@ const settingCurrentBal = (acc) => {
   storage4LebelBal = acc.movements.reduce(
     (valsSum, currentVal) => valsSum + currentVal
   );
-  labelBalance.textContent = `₹${storage4LebelBal}`;
+  labelBalance.textContent = `${formatCurrency(storage4LebelBal)}`;
 };
 
 // Now setting total IN, OUT & INTEREST i.e. total deposits, withdrawl & interest user get :)
@@ -199,14 +207,14 @@ const summary = (acc) => {
     .filter((mov) => mov > 0)
     .reduce((acc, curr) => acc + curr);
 
-  labelSumIn.textContent = `₹${totalDeposits}`;
+  labelSumIn.textContent = `${formatCurrency(totalDeposits)}`;
 
   // OUT
   const totalWithdrawl = acc.movements
     .filter((mov) => mov < 0)
     .reduce((acc, curr) => acc + curr);
 
-  labelSumOut.textContent = `₹${Math.abs(totalWithdrawl)}`;
+  labelSumOut.textContent = `${formatCurrency(Math.abs(totalWithdrawl))}`;
   // here Math.abs() will remove the -ve sign from withdrawl
 
   // INTEREST
@@ -214,7 +222,9 @@ const summary = (acc) => {
     .filter((mov) => mov > 0)
     .map((price) => (price * acc.interestRate) / 100)
     .reduce((acc, curr) => acc + curr, 0);
-  labelSumInterest.textContent = `₹${parseFloat(totalInterest.toFixed(2))}`;
+  labelSumInterest.textContent = `${formatCurrency(
+    parseFloat(totalInterest.toFixed(2))
+  )}`;
   // here i've used parsseFloat(). toFixed() methods to display interest money upto a fixed decimal point
 };
 

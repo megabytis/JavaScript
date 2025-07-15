@@ -239,12 +239,40 @@ const updateEverything = () => {
   summary(loginAcc);
 };
 
+// adding logout-timer
+const letsStartTimerToLogOut = function () {
+  let countDown = 600;
+
+  // let's call the timer every second
+  const timer = setInterval(() => {
+    let minute = String(Math.trunc(countDown / 60)).padStart(2, 0);
+    let second = String(countDown % 60).padStart(2, 0);
+
+    labelTimer.textContent = `${minute}:${second}`;
+
+    // now let's decreaethe coundown
+    countDown--;
+
+    // now when my countdown will become 0, i'll stop it nd logOut the user
+    if (countDown == 0) {
+      clearInterval(timer);
+
+      // now show login screen
+      labelWelcome.textContent = `Log in to get started`;
+      containerApp.style.opacity = 0;
+    }
+  }, 1000);
+};
+
 // Now handling all Buttons, let's  :)
 
 // 🔵 LOGIN button
 let loginAcc;
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
+
+  // starting timer
+  letsStartTimerToLogOut();
 
   // First changing welcome messege to login messege
   labelWelcome.textContent = `Log in to get started`;

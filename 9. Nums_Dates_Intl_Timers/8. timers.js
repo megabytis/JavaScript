@@ -36,3 +36,28 @@ const timer = setTimeout(() => {
   console.log(9999);
 }, 1000);
 clearTimeout(timer); // prevents execution if 'timer' isn't run yet
+
+// ######## setInterval() ###########
+// Repeatedly execute code at intervals
+/* 
+syntax : 
+const intervalID = setInterval(callback, delayInMs, param1, param2, ...);
+
+Works similarly to setTimeout but repeats until cleared.
+*/
+// e.g. 1 :---
+let counter = 0;
+const interval = setInterval(() => {
+  counter++;
+  console.log(`Internal run #${counter}`);
+
+  // cancelling an interval
+  if (counter >= 10) {
+    clearInterval(interval); // stops further execution after 10 times i.e. 10*1000 = 10,000 i.e. 10seconds
+  }
+}, 1000);
+
+// e.g. 2 :----
+setInterval(() => {
+  console.log(new Date());
+}, 1000);

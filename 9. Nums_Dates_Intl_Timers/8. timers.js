@@ -61,3 +61,7 @@ const interval = setInterval(() => {
 setInterval(() => {
   console.log(new Date());
 }, 1000);
+
+/* ⚠️⚠️⚠️ IMPORTANT points ⚠️⚠️⚠️
+- Clearing Timers is Important, cuz Memory leaks can occur if timers aren’t cleared.
+*/

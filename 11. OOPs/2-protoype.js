@@ -4,6 +4,7 @@ const student = function (name, birthYear) {
 };
 
 // Instance methods : using prototype property
+// prototype is an OBJECT
 student.prototype.welcome = function () {
   console.log(`Hello ${this.name}`);
 };
@@ -39,3 +40,31 @@ prototype is a property of constructor functions (only).
 
 __proto__ is a property of objects, pointing to their prototype.
 */
+
+/*  ⚠️⚠️⚠️ IMPORTANT ⚠️⚠️⚠️
+we know that in Backend :---
+
+const s1 = {
+  name: "miku",
+  birthYear: 2004,
+  __proto__: student.prototype,
+};
+
+so, s1 obj don't have welcome(), calcAge() func, but student.prototype have these.
+nd s1 object's __proto__ holds 'student.prototype'.
+
+that's how all r connected 
+*/
+
+// ################## othe built-In methods #####################
+console.log(s1.__proto__ === student.prototype); // true
+console.log(student.prototype.isPrototypeOf(s1)); // true
+console.log(student.prototype.isPrototypeOf(student)); // false
+
+// prototype of linked objects
+student.prototype.schoolName = "D.A.V.";
+console.log(s1.schoolName, student2.schoolName);
+
+console.log(s1.hasOwnProperty("schoolName"));
+console.log(student2.hasOwnProperty("namakarana"));
+console.log(student.hasOwnProperty("schoolName"));

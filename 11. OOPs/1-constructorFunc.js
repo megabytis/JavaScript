@@ -15,18 +15,29 @@ const Student = function (name, birthYear) {
 };
 
 const s1 = new student("miku", 2004);
-// A function becomes a constructor when called with the new keyword
 console.log(`Birthyear: ${s1.birthYear}`);
 console.log(`Name: ${s1.name}`);
 /* 
-what happened here ;
-new does 4 things ;
-1. a new object / {} created in the name 's1'
+A function becomes a constructor when called with the new keyword
+
+what happened after using 'new' ;
+1. a new object / {} created in the name 's1' & whatever properties constructor func 'Student' have will be included inside this 's1' obj
 2. function is called , where 'this' refere  to that obj i.e. {}
 3. Links the object’s __proto__ to the constructor’s prototype.
 4. Automatically returns this (the new object).
 */
 
+/* in Backend :---
+
+const s1 = {
+  name: "miku",
+  birthYear: 2004,
+  __proto__: student.prototype,
+};
+
+*/
+
+// more objects
 const s2 = new student("Raghu", 22);
 const s3 = new student("Sheetal", 20);
 

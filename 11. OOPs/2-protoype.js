@@ -56,6 +56,22 @@ nd s1 object's __proto__ holds 'student.prototype'.
 that's how all r connected 
 */
 
+/*
+Prototype Chain Visualization (Improved)
+
+s1 (Instance)
+│── name: "Madhusudan" (own property)
+│── birthYear: 2004 (own property)
+└── __proto__: Student.prototype 
+     │── welcome() (shared method)
+     │── calcAge() (shared method)
+     │── constructor: Student() (reference back)
+     └── __proto__: Object.prototype 
+          │── toString() (default JS methods)
+          │── hasOwnProperty()
+          └── __proto__: null (end of chain)
+
+*/
 // ################## othe built-In methods #####################
 console.log(s1.__proto__ === student.prototype); // true
 console.log(student.prototype.isPrototypeOf(s1)); // true

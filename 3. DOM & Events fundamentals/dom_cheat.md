@@ -18,10 +18,13 @@ DOM MANIPULATION BRAHMASTRA (v3.0)
  ► el.href = 'https://...' // Links  
  ► el.src = 'image.jpg' // Media elements  
  ► el.dataset._ // Access data-_ attributes
+ ► el.insertAdjacentElement('option',htmlElement) // to insert an entire HTML code to web via js :)
+   // here 'option' can be; 'afterbegin','afterend','beforebegin','beforeend'
+   // then, htmlElement means, whatever HTML script we wanna push into webpage through js code
 
-► el.insertAdjacentElement('option',htmlElement) // to insert an entire HTML code to web via js :)
-// here 'option' can be; 'afterbegin','afterend','beforebegin','beforeend'
-// then, htmlElement means, whatever HTML script we wanna push into webpage through js code
+
+► el.createElement('HTML-tag');
+   where 'HTML-tag'can be div, p, article anything...
 
 ■ 3. CLASS & STYLE (Make It Pretty)  
  ► el.classList.add('active') // Add class  
@@ -36,6 +39,8 @@ DOM MANIPULATION BRAHMASTRA (v3.0)
  ► parent.prepend(el) // Add to start  
  ► el.cloneNode(true) // Deep clone  
  ► el.remove() // Delete forever
+ ► el.before(messege) // places the messege before el
+ ► el.after(messege) // places the messege after el
 
 ■ 5. EVENTS (Make It Alive)  
  ► el.addEventListener('click', handler) // Attach event  

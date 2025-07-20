@@ -46,3 +46,20 @@ Only use 'Prototype Methods' when:
     - Extending built-in objects (Array, String, etc.).
     - Dynamically adding methods at runtime (rarely needed).
 */
+
+/*  Important points :
+1. Classes are not Hoisted
+    i.e. we can't use the class before the class declaration
+
+2. Classes are also first-class citizens
+    i.e. classes can be passed into functions and also can be returned from a function .
+
+3. Classes are always being executed in STRICT MODE .
+*/
+
+/*
+so, finally we got 2 ways;
+(i) Constructor Function , (ii) ES6 class
+we can use any one between two,
+i personally love 😍 ES6 classes, cuz it looks CLASSIC, GENTLEMAN Type :), SIMPLE
+*/

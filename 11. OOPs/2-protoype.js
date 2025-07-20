@@ -27,7 +27,7 @@ console.log(student.prototype);
 /*
 How It Works Under the Hood :-
 
-[Student Instance (s1)] 
+[Student Instance (s1)]
   │── name: "Madhusudan" (own property)
   └── __proto__: Student.prototype
        │── greet() (shared method)
@@ -53,7 +53,7 @@ const s1 = {
 so, s1 obj don't have welcome(), calcAge() func, but student.prototype have these.
 nd s1 object's __proto__ holds 'student.prototype'.
 
-that's how all r connected 
+that's how all r connected
 */
 
 /*
@@ -62,11 +62,11 @@ Prototype Chain Visualization (Improved)
 s1 (Instance)
 │── name: "Madhusudan" (own property)
 │── birthYear: 2004 (own property)
-└── __proto__: Student.prototype 
+└── __proto__: Student.prototype
      │── welcome() (shared method)
      │── calcAge() (shared method)
      │── constructor: Student() (reference back)
-     └── __proto__: Object.prototype 
+     └── __proto__: Object.prototype
           │── toString() (default JS methods)
           │── hasOwnProperty()
           └── __proto__: null (end of chain)
@@ -84,3 +84,13 @@ console.log(s1.schoolName, student2.schoolName);
 console.log(s1.hasOwnProperty("schoolName"));
 console.log(student2.hasOwnProperty("namakarana"));
 console.log(student.hasOwnProperty("schoolName"));
+console.log(student2.name);
+console.log(student2.__proto__);
+console.log(s1.__proto__.__proto__.__proto__); // null
+
+console.log(student.prototype.constructor); // student constructor function itself
+console.dir(student.prototype.constructor);
+
+const arr = [3, 7, 93, 6, 24, 743];
+console.log(arr.__proto__);
+console.log(arr.__proto__ === Array.prototype);

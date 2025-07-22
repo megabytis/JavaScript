@@ -98,3 +98,31 @@ s2.study(); // calling child class's function
 // ###################################################
 // (iii) Inheritance with Object.create() (Prototypal)
 // ###################################################
+
+// Parent Object
+const Person3 = {
+  init(name, age) {
+    this.name = name;
+    this.age = age;
+  },
+  greet() {
+    console.log(`Hi, I'm ${this.name}`);
+  },
+};
+
+// child object
+const Student3 = Object.create(Person3);
+Student3.init = function (name, age, grade) {
+  Person3.init.call(this, name, age); // "super" call
+  this.grade = grade;
+};
+
+Student3.study = function () {
+  console.log(`${this.name} is studing! `);
+};
+
+// creating object from the above\
+const s3 = Object.create(Student3);
+s3.init("Madhusmita", 20, "A+");
+s3.greet();
+s3.study();

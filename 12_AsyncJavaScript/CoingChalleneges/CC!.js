@@ -44,17 +44,29 @@ function whereAmI(lat, lng) {
       return res.json();
     })
     .then((data) => {
-      console.log(data);
-
-      //   console.log(`You are in ${data.city}, ${data.countryName}`);
+      // console.log(data);
+      // console.log(`You are in ${data.city}, ${data.countryName}`);
+      return data;
+    })
+    .then((countryData) => {
+      fetch(`https://restcountries.com/v3.1/name/${countryData.countryName}`)
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error(`Error : ${res.status}`);
+          }
+          return res.json();
+        })
+        .then((countryDetails) => {
+          console.log(countryDetails);
+        });
     })
     .catch((err) => {
       console.log(`Error : ${err}`);
     });
 }
 
-whereAmI(52.508, 13.381);
-// whereAmI(19.037, 72.873);
+// whereAmI(52.508, 13.381);
+whereAmI(20.951, 85.207);
 // whereAmI(-33.933, 18.474);
 // whereAmI(41.801, 21.727);
 // whereAmI(-30.271, 15.951);

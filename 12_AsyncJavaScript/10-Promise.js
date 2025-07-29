@@ -95,11 +95,9 @@ function guessNumber(target) {
   return new Promise((resolve, reject) => {
     const randomNum = Math.floor(Math.random() * 10) + 1;
 
-    if (randomNum === target) {
-      resolve(`💐 Correct! It was ${target}`);
-    } else {
-      reject(`💩 Wrong! it was ${randomNum}, not ${target}`);
-    }
+    randomNum === target
+      ? resolve(`💐 Correct! It was ${target}`)
+      : reject(`💩 Wrong! it was ${randomNum}, not ${target}`);
   });
 }
 

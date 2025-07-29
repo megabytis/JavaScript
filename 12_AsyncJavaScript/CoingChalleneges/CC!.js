@@ -29,7 +29,7 @@ GOOD LUCK 😀
 
 // Answer :--
 
-function whereAmI(lat, lng) {
+function whereAmI_1(lat, lng) {
   fetch(
     `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
   )
@@ -65,8 +65,46 @@ function whereAmI(lat, lng) {
     });
 }
 
-// whereAmI(52.508, 13.381);
-whereAmI(20.951, 85.207);
+// Promisifying above Promise chain
+function whereAmI_2(lat, lng) {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lng}`
+    )
+      .then((res) => {
+        if (!res.ok) {
+          if (res.status === 403) {
+            throw new Error(`Rate limit exceeded, wait before next request !`);
+          }
+          throw new Error(`HTTP Error :${res.status}`);
+        }
+        return res.json();
+      })
+      .then((data) => {
+        return data;
+      })
+      .then((countryData) => {
+        fetch(`https://restcountries.com/v3.1/name/${countryData.countryName}`)
+          .then((res) => {
+            if (!res.ok) {
+              throw new Error(`Error : ${res.status}`);
+            }
+            return res.json();
+          })
+          .then((countryDetails) => {
+            resolve(countryDetails);
+          });
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+}
+
+whereAmI_1(52.508, 13.381);
+whereAmI_2(20.951, 85.207)
+  .then((detials) => console.log(detials))
+  .catch((err) => console.log(err));
 // whereAmI(-33.933, 18.474);
 // whereAmI(41.801, 21.727);
 // whereAmI(-30.271, 15.951);

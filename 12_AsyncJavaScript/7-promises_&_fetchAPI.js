@@ -32,3 +32,6 @@ Here,
 3. 2nd & 3rd .then() also returns 2 Promises
 4. final then() is logging result
 */
+
+// ⚠️⚠️⚠️ IMPORTANT ⚠️⚠️⚠️
+// here all .this() returns by default a pre-made Promise, we don't have to create an Promise

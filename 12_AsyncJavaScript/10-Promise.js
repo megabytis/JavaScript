@@ -115,4 +115,4 @@ but here writing directly Promise.resolve will create an automatic promise conta
 */
 
 Promise.reject(new Error("Bug found!🐞")).catch((err) => console.log(err));
-// same here, also it will create an promise container having an erro message written inside it !
+// same here, also it will create an promise container having an error message written inside it !
